@@ -1,0 +1,41 @@
+{
+  "name": "dsh-web-search-moonshot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "用 Moonshot / Kimi 联网搜索（POST /v1/tools/search）作为 DeepSeek Harness 的 web_search 提供方：一次查询一次工具调用，不消耗模型轮次。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "web-search",
+    "moonshot",
+    "kimi"
+  ],
+  "license": "MIT",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-credentials": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-launch-environment": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-web": "0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "3.18.4"
+  }
+}

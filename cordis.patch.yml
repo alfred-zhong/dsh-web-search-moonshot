@@ -1,0 +1,20 @@
+# 本 bundle 的补丁层：把 Moonshot 联网搜索挂进 ctx.web，并把它选为当前搜索提供方。
+#
+# 注意 Loader 的覆盖语义：带 id 的条目会替换该行的 `config`（整段替换，不做深合并），
+# 所以下面覆盖内建 `web` 行时必须把 fetchProvider 一起重述。
+- insert:
+    - id: web-search-moonshot
+      name: 'dsh-web-search-moonshot'
+      config:
+        # 不写 apiKey 字面值；Key 按「凭据服务 MOONSHOT_API_KEY → 启动环境
+        # → ~/.kimi-code/config.toml 的 [services.moonshot_search]」依次解析。
+        apiKeyEnv: MOONSHOT_API_KEY
+        baseURL: 'https://api.moonshot.cn/v1/tools/search'
+        timeoutSeconds: 30
+        defaultLimit: 10
+
+- id: web
+  name: '@deepseek-ai/dsh-web'
+  config:
+    searchProvider: moonshot
+    fetchProvider: http
